@@ -25,7 +25,7 @@ namespace BankingApp
 
             // Настройка Serilog
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.File("Logs/BankingApp-{Date}.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.File("Logs/BankingApp-{Date}.txt", rollingInterval: RollingInterval.Hour)
                 .CreateLogger();
 
             builder.Logging.ClearProviders(); // Очистка стандартных провайдеров логирования

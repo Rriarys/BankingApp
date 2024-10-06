@@ -14,5 +14,8 @@ namespace BankingApp.Context
 
         // Добавляем DbSet для управления банковскими счетами
         public DbSet<BankAccount> BankAccounts { get; set; }
+
+        // Добавляем DbSet для управления дополнительной информацией о пользователях
+        public DbSet<UserAdditionalInfo> UserAdditionalInfos { get; set; } // Новая строка
     }
 }

@@ -21,8 +21,32 @@
             <input asp-for="Password" id="passwordInput" name="Password" type="password" autocomplete="new-password" />
             <span asp-validation-for="Password"></span>
         </div>
+        <div>
+            <label asp-for="FirstName" for="firstNameInput">Имя</label>
+            <input asp-for="FirstName" id="firstNameInput" name="FirstName" autocomplete="given-name" />
+            <span asp-validation-for="FirstName"></span>
+        </div>
+        <div>
+            <label asp-for="LastName" for="lastNameInput">Фамилия</label>
+            <input asp-for="LastName" id="lastNameInput" name="LastName" autocomplete="family-name" />
+            <span asp-validation-for="LastName"></span>
+        </div>
+        <div>
+            <label asp-for="PassportNumber" for="passportInput">Номер паспорта</label>
+            <input asp-for="PassportNumber" id="passportInput" name="PassportNumber" autocomplete="off" />
+            <span asp-validation-for="PassportNumber"></span>
+        </div>
+        <div>
+            <label asp-for="TaxpayerId" for="taxpayerInput">Номер карточки налогоплательщика</label>
+            <input asp-for="TaxpayerId" id="taxpayerInput" name="TaxpayerId" autocomplete="off" />
+            <span asp-validation-for="TaxpayerId"></span>
+        </div>
+        <div>
+            <label asp-for="DateOfBirth" for="dobInput">Дата рождения</label>
+            <input asp-for="DateOfBirth" type="date" id="dobInput" name="DateOfBirth" autocomplete="bday" />
+            <span asp-validation-for="DateOfBirth"></span>
+        </div>
         <button type="submit">Register</button>
     </form>
-
 </body>
 </html>

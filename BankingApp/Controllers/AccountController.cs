@@ -1,4 +1,5 @@
 ﻿using BankingApp.Models;
+using BankingApp.Context; // Добавлено для использования ApplicationDbContext
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,13 +11,19 @@ namespace BankingApp.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<AccountController> _logger;
+        private readonly ApplicationDbContext _context; // Добавлено поле для контекста
 
         // Конструктор контроллера
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, ILogger<AccountController> logger)
+        public AccountController(
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager,
+            ILogger<AccountController> logger,
+            ApplicationDbContext context) // Добавлено внедрение контекста
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _context = context; // Инициализация контекста
         }
 
         // Возвращает форму регистрации
@@ -62,6 +69,22 @@ namespace BankingApp.Controllers
                 {
                     _logger.LogInformation("User created successfully: {Email}", model.Email); // Лог
                     await _signInManager.SignInAsync(user, isPersistent: false);
+
+                    // Сохраните дополнительные данные в отдельной модели
+                    var additionalInfo = new UserAdditionalInfo
+                    {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        PassportNumber = model.PassportNumber,
+                        TaxpayerId = model.TaxpayerId,
+                        DateOfBirth = model.DateOfBirth,
+                        UserId = user.Id // Связываем с пользователем
+                    };
+
+                    // Сохраните additionalInfo в базе данных
+                    _context.UserAdditionalInfos.Add(additionalInfo);
+                    await _context.SaveChangesAsync();
+
                     return RedirectToAction("Index", "Home");
                 }
             }

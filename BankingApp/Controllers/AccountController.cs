@@ -68,7 +68,7 @@ namespace BankingApp.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created successfully: {Email}", model.Email); // Лог
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    /*await _signInManager.SignInAsync(user, isPersistent: false); // Из-за этой херни я проебался 5 часов с авторизацией */
 
                     // Сохраните дополнительные данные в отдельной модели
                     var additionalInfo = new UserAdditionalInfo
@@ -85,6 +85,9 @@ namespace BankingApp.Controllers
                     _context.UserAdditionalInfos.Add(additionalInfo);
                     await _context.SaveChangesAsync();
 
+                    // Автоматически разлогиниваем пользователя
+                    await _signInManager.SignOutAsync();
+
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -92,12 +95,12 @@ namespace BankingApp.Controllers
             return View(model);
         }
 
-        // Выход из системы
+        /*// Выход из системы
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
-        }
+        }*/
     }
 }

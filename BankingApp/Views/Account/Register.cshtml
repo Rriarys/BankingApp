@@ -48,5 +48,18 @@
         </div>
         <button type="submit">Register</button>
     </form>
+
+    @if (ViewData.ModelState != null && ViewData.ModelState.ErrorCount > 0)
+    {
+        <div class="validation-summary-errors text-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                        <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+
 </body>
 </html>

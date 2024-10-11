@@ -1,65 +1,166 @@
 ﻿@model BankingApp.Models.RegisterViewModel
 
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Регистрация</title>
-    @* <link rel="stylesheet" href="~/css/styles.css" />  *@
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Registration</title>
+	<style>
+		/* Устанавливаем основные параметры страницы */
+		body {
+			font-family: Arial, sans-serif;
+			background: linear-gradient(135deg, #4f8cf7, #b680ff);
+			margin: 0;
+			padding: 0;
+			min-height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+		}
+
+		/* Обновленный стиль для заголовка */
+		h1 {
+			color: white; /* Цвет текста белый */
+			font-size: 48px; /* Увеличиваем размер текста */
+			font-weight: bold;
+			letter-spacing: 2px; /* Раздвигаем буквы */
+			margin-bottom: 20px;
+			text-align: center;
+			text-transform: uppercase; /* Заглавные буквы */
+		}
+
+		label {
+			font-weight: bold;
+			margin-bottom: 2px; 
+			display: block;
+		}
+
+		/* Стиль для формы */
+		form {
+			background-color: white;
+			border-radius: 10px;
+			padding: 20px;
+			max-width: 450px;
+			width: 100%;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+			position: relative;
+			overflow: hidden;
+			margin-bottom: 50px; /* Добавлен отступ снизу для формы */
+		}
+
+		/* Стили для полей ввода */
+		input {
+			width: calc(100% - 20px);
+			padding: 12px;
+			margin-bottom: 15px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			font-size: 16px;
+		}
+
+		/* Стили для кнопки */
+		button {
+			width: 100%;
+			background: linear-gradient(90deg, #4f8cf7, #9f41ff);
+			border: none;
+			padding: 12px;
+			color: white;
+			font-size: 16px;
+			border-radius: 5px;
+			cursor: pointer;
+			transition: background 0.3s ease;
+			margin-top: 10px;
+		}
+
+		/* Изменение цвета кнопки при наведении */
+		button:hover {
+			background: linear-gradient(90deg, #5f9cf7, #af51ff);
+		}
+
+		/* Стиль для вывода ошибок */
+		.validation-summary-errors {
+			background-color: #f8d7da;
+			border-color: #f5c6cb;
+			color: #721c24;
+			padding: 10px;
+			border-radius: 5px;
+			margin-bottom: 15px;
+			font-size: 14px;
+			overflow-wrap: break-word;
+			margin-top: 15px;
+		}
+
+		/* Мобильная адаптация */
+		@@media screen and (max-width: 600px) {
+			form {
+				padding: 15px;
+				max-width: 100%;
+			}
+
+			h1 {
+				font-size: 32px; /* Уменьшаем заголовок на мобильных */
+			}
+
+			button {
+				font-size: 14px;
+			}
+		}
+	</style>
 </head>
 <body>
-    <h1>Регистрация</h1>
-    <form asp-action="Register" method="post">
-        <div>
-            <label asp-for="Email" for="emailInput">mail</label>
-            <input asp-for="Email" id="emailInput" name="Email" autocomplete="email" />
-            <span asp-validation-for="Email"></span>
-        </div>
-        <div>
-            <label asp-for="Password" for="passwordInput">pass</label>
-            <input asp-for="Password" id="passwordInput" name="Password" type="password" autocomplete="new-password" />
-            <span asp-validation-for="Password"></span>
-        </div>
-        <div>
-            <label asp-for="FirstName" for="firstNameInput">Имя</label>
-            <input asp-for="FirstName" id="firstNameInput" name="FirstName" autocomplete="given-name" />
-            <span asp-validation-for="FirstName"></span>
-        </div>
-        <div>
-            <label asp-for="LastName" for="lastNameInput">Фамилия</label>
-            <input asp-for="LastName" id="lastNameInput" name="LastName" autocomplete="family-name" />
-            <span asp-validation-for="LastName"></span>
-        </div>
-        <div>
-            <label asp-for="PassportNumber" for="passportInput">Номер паспорта</label>
-            <input asp-for="PassportNumber" id="passportInput" name="PassportNumber" autocomplete="off" />
-            <span asp-validation-for="PassportNumber"></span>
-        </div>
-        <div>
-            <label asp-for="TaxpayerId" for="taxpayerInput">Номер карточки налогоплательщика</label>
-            <input asp-for="TaxpayerId" id="taxpayerInput" name="TaxpayerId" autocomplete="off" />
-            <span asp-validation-for="TaxpayerId"></span>
-        </div>
-        <div>
-            <label asp-for="DateOfBirth" for="dobInput">Дата рождения</label>
-            <input asp-for="DateOfBirth" type="date" id="dobInput" name="DateOfBirth" autocomplete="bday" />
-            <span asp-validation-for="DateOfBirth"></span>
-        </div>
-        <button type="submit">Register</button>
-    </form>
+	<h1>Registration</h1>
+	<form asp-action="Register" method="post">
+		<div>
+			<label asp-for="Email" for="emailInput">Email</label>
+			<input asp-for="Email" id="emailInput" name="Email" autocomplete="email" />
+			<span asp-validation-for="Email"></span>
+		</div>
+		<div>
+			<label asp-for="Password" for="passwordInput">Password</label>
+			<input asp-for="Password" id="passwordInput" name="Password" type="password" autocomplete="new-password" />
+			<span asp-validation-for="Password"></span>
+		</div>
+		<div>
+			<label asp-for="FirstName" for="firstNameInput">First Name</label>
+			<input asp-for="FirstName" id="firstNameInput" name="FirstName" autocomplete="given-name" />
+			<span asp-validation-for="FirstName"></span>
+		</div>
+		<div>
+			<label asp-for="LastName" for="lastNameInput">Last Name</label>
+			<input asp-for="LastName" id="lastNameInput" name="LastName" autocomplete="family-name" />
+			<span asp-validation-for="LastName"></span>
+		</div>
+		<div>
+			<label asp-for="PassportNumber" for="passportInput">Passport Number</label>
+			<input asp-for="PassportNumber" id="passportInput" name="PassportNumber" autocomplete="off" />
+			<span asp-validation-for="PassportNumber"></span>
+		</div>
+		<div>
+			<label asp-for="TaxpayerId" for="taxpayerInput">Taxpayer ID</label>
+			<input asp-for="TaxpayerId" id="taxpayerInput" name="TaxpayerId" autocomplete="off" />
+			<span asp-validation-for="TaxpayerId"></span>
+		</div>
+		<div>
+			<label asp-for="DateOfBirth" for="dobInput">Date of Birth</label>
+			<input asp-for="DateOfBirth" type="date" id="dobInput" name="DateOfBirth" autocomplete="bday" />
+			<span asp-validation-for="DateOfBirth"></span>
+		</div>
+		<button type="submit">Register</button>
+	</form>
 
-    @if (ViewData.ModelState != null && ViewData.ModelState.ErrorCount > 0)
-    {
-        <div class="validation-summary-errors text-danger">
-            <ul>
-                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-                {
-                        <li>@error.ErrorMessage</li>
-                }
-            </ul>
-        </div>
-    }
+	@if (ViewData.ModelState != null && ViewData.ModelState.ErrorCount > 0)
+	{
+		<div class="validation-summary-errors text-danger">
+			<ul>
+				@foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+				{
+					<li>@error.ErrorMessage</li>
+				}
+			</ul>
+		</div>
+	}
 
 </body>
 </html>

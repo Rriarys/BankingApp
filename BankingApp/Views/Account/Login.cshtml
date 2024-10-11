@@ -1,15 +1,162 @@
 ﻿@model BankingApp.Models.LoginViewModel
 
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Вход в аккаунт</title>
-    @* <link rel="stylesheet" href="~/css/styles.css" /> *@
+    <title>Login</title>
+    <style>
+        /* Основные стили для страницы */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4f8cf7, #b680ff);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* .bank-app-title {
+            font-size: 72px; /* Размер шрифта */
+            font-weight: bold; /* Жирный шрифт */
+            color: rgba(255, 255, 255, 0.8); /* Цвет текста с небольшой прозрачностью для лучшей видимости на градиенте */
+            text-align: left; /* Выравнивание текста по левому краю */
+            position: absolute; /* Позволяет размещать элемент на фоне */
+            top: 20px; /* Расположение сверху */
+            left: 20px; /* Расположение слева */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); /* Добавляем тень для лучшей читаемости */
+        } /* Потом придумаю куда притулить*/ */
+
+        /* Стили для заголовка */
+        h1 {
+            color: white;
+            font-size: 48px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 2px;
+            display: block;
+        }
+
+        /* Стиль формы */
+        form {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        /* Стили для полей ввода */
+        input {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* Стили для кнопки */
+        button {
+            width: 100%;
+            background: linear-gradient(90deg, #4f8cf7, #9f41ff);
+            border: none;
+            padding: 12px;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 10px;
+        }
+
+        /* Эффект при наведении на кнопку */
+        button:hover {
+            background: linear-gradient(90deg, #5f9cf7, #af51ff);
+        }
+
+        /* Стили для блока ссылок */
+        div a {
+            color: white;
+            font-size: 14px;
+            text-decoration: none;
+            margin-top: 10px;
+            display: block;
+            text-align: center;
+        }
+
+        /* Стили для валидации ошибок */
+        .validation-summary-errors {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            overflow-wrap: break-word;
+            margin-top: 15px;
+        }
+
+        /* Мобильная адаптация */
+        @@media screen and (max-width: 600px) {
+            form {
+                padding: 15px;
+                max-width: 100%;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+
+            div a {
+                font-size: 12px;
+            }
+        }
+
+        a {
+            color: white; /* Цвет ссылки */
+            font-size: 16px; /* Увеличиваем размер шрифта */
+            font-weight: bold; /* Делаем шрифт жирным */
+            text-decoration: none;
+            margin-top: 10px;
+            display: block;
+            text-align: center;
+        }
+
+            /* Убираем изменение стиля после посещения ссылки */
+            a:visited {
+                color: white; /* Оставляем цвет таким же, как для обычной ссылки */
+            }
+
+            /* Дополнительные стили при наведении */
+            a:hover {
+                text-decoration: underline; /* Добавляем подчеркивание при наведении */
+            }
+    </style>
 </head>
 <body>
-    <h1>Вход в аккаунт</h1>
+    @* <h1 class="bank-app-title">Bank<br>App</h1> *@
+    <h1>Login</h1>
     <form asp-action="Login" method="post">
         @Html.AntiForgeryToken()
         <div>
@@ -18,15 +165,15 @@
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div>
-            <label asp-for="Password" for="passwordInput">Пароль</label>
+            <label asp-for="Password" for="passwordInput">Password</label>
             <input asp-for="Password" id="passwordInput" name="Password" type="password" autocomplete="current-password" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
-        <button type="submit">Войти</button>
+        <button type="submit">Login</button>
     </form>
 
     <div>
-        <a asp-controller="Account" asp-action="Register">Нет аккаунта? Зарегистрируйтесь!</a>
+        <a href="/Account/Register">No account? Register here!</a> @* сслыка добавлена колхозно *@
     </div>
 
     @if (ViewData.ModelState != null && ViewData.ModelState.ErrorCount > 0)

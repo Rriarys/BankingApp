@@ -1,0 +1,44 @@
+﻿@model BankingApp.Models.LoginViewModel
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Вход в аккаунт</title>
+    @* <link rel="stylesheet" href="~/css/styles.css" /> *@
+</head>
+<body>
+    <h1>Вход в аккаунт</h1>
+    <form asp-action="Login" method="post">
+        @Html.AntiForgeryToken()
+        <div>
+            <label asp-for="Email" for="emailInput">Email</label>
+            <input asp-for="Email" id="emailInput" name="Email" autocomplete="email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="Password" for="passwordInput">Пароль</label>
+            <input asp-for="Password" id="passwordInput" name="Password" type="password" autocomplete="current-password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <button type="submit">Войти</button>
+    </form>
+
+    <div>
+        <a asp-controller="Account" asp-action="Register">Нет аккаунта? Зарегистрируйтесь!</a>
+    </div>
+
+    @if (ViewData.ModelState != null && ViewData.ModelState.ErrorCount > 0)
+    {
+        <div class="validation-summary-errors text-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+</body>
+</html>

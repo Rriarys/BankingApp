@@ -88,15 +88,38 @@ namespace BankingApp.Controllers
                     // Автоматически разлогиниваем пользователя
                     await _signInManager.SignOutAsync();
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Account");
                 }
             }
 
             return View(model);
         }
 
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: false, lockoutOnFailure: false);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Create", "BankAccount"); // Измените на нужный вам контроллер и действие
+                }
+                ModelState.AddModelError(string.Empty, "Неверный логин или пароль.");
+            }
+            return View(model);
+        }
+
         /*// Выход из системы
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
